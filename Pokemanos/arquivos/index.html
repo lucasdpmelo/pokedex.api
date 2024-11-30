@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon App</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .pokemon-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+        }
+        .pokemon-card img {
+            max-width: 100%;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="search-box">
+            <input type="text" v-model="searchText" placeholder="Search Pokemon">
+        </div>
+        <div v-if="loading">Loading...</div>
+        <div v-else>
+            <div v-for="pokemon in filteredPokemons" :key="pokemon.id" class="pokemon-card">
+                <img :src="pokemon.sprites.front_default" :alt="pokemon.name">
+                <h3>{{ pokemon.name }}</h3>
+                <p>ID: {{ pokemon.id }}</p>
+                <p>Weight: {{ pokemon.weight }}</p>
+                <div :class="getTypeClass(pokemon)">
+                    <span v-for="type in pokemon.types" :key="type.type.name">{{ type.type.name }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
